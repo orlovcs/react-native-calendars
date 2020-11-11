@@ -41,6 +41,8 @@ class Calendar extends Component {
     style: viewPropTypes.style,
     /** Initially visible month. Default = Date() */
     current: PropTypes.any,
+    /** Specify if calendar should react to a change in current date. Default = false */
+    shouldCurrentUpdate: PropTypes.any,
     /** Minimum date that can be selected, dates before minDate will be grayed out. Default = undefined */
     minDate: PropTypes.any,
     /** Maximum date that can be selected, dates after maxDate will be grayed out. Default = undefined */
@@ -184,6 +186,17 @@ class Calendar extends Component {
     return `${isToday ? 'today' : ''} ${day.toString('dddd d MMMM yyyy')} ${markingLabel}`;
   }
 
+  updateCurrent = () => {
+    this._handleDayInteraction(this.props.current)
+  }
+
+  componentDidUpdate(){
+    const shouldUpdateCurrent = this.props.shouldCurrentUpdate != undefined && this.props.shouldCurrentUpdate;
+    if (shouldUpdateCurrent){
+      this.updateCurrent();
+    }
+
+  }
 
   renderDay(day, id) {
     const minDate = parseDate(this.props.minDate);
