@@ -187,7 +187,7 @@ class Calendar extends Component {
   }
 
   updateCurrent = () => {
-    this._handleDayInteraction(this.props.current)
+    this._handleDayInteraction(this.props.current);
   }
 
   componentDidUpdate(){
